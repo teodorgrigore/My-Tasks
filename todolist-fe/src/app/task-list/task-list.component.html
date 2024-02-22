@@ -1,0 +1,88 @@
+<h1 class="text-center mb-5">Tasks list</h1>
+<!-- <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Creation date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Due date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of allTasks; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{task.title}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.creationDate}}</td>
+        <td>{{task.status}}</td>
+        <td>{{task.dueDate}}</td>
+        <td>
+            <button (click)="onDelete(task)" type="button" class="btn btn-outline-danger me-3">DELETE</button>
+            <button (click)="onUpdate(task)" type="button" class="btn btn-outline-primary me-3">UPDATE</button>
+            <button *ngIf="task.status==='IN_PROGRESS'" (click)="changeStatus(task.id, 'PENDING')" type="button" class="btn btn-outline-secondary me-3">PENDING</button>
+            <button *ngIf="task.status==='PENDING' || task.status==='FINISHED'" (click)="changeStatus(task.id, 'IN_PROGRESS')" type="button" class="btn btn-outline-secondary me-3">IN PROGRESS</button>
+            <button *ngIf="task.status==='IN_PROGRESS'"(click)="changeStatus(task.id, 'FINISHED')" type="button" class="btn btn-outline-warning me-3">FINISHED</button>
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+
+  <app-create-update-form *ngIf="isEditMode" [taskToUpdate]="currentTask"></app-create-update-form>
+
+
+  <div class="container" *ngIf="allTasks.length > 0">
+    <div class="row">
+      <div class="col">
+        <h3 class="text-center">Pending</h3>
+        <div class="card mt-2" *ngFor="let task of findTasksByStatus(allTasks, 'PENDING')"style="">
+          <div class="card-body">
+            <h5 class="card-title">{{task.title}}</h5>
+            <p class="card-text">{{task.description}}</p>
+            <small class="card-text d-block">Creation date: {{task.creationDate | date:'dd/mm/yyyy hh:ss'}}</small>
+            <small class="card-text d-block">Due date: {{task.dueDate | date:'dd/mm/yyyy hh:ss'}}</small>
+            <div class="mt-4">
+              <button (click)="onDelete(task)" type="button" class="btn btn-outline-danger me-1 btn-sm">DELETE</button>
+              <button (click)="onUpdate(task)" type="button" class="btn btn-outline-primary me-1 btn-sm">UPDATE</button>
+              <button (click)="changeStatus(task.id, 'IN_PROGRESS')" type="button" class="btn btn-outline-secondary me-1 btn-sm">IN PROGRESS</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h3 class="text-center">In progress</h3>
+        <div class="card mt-2" *ngFor="let task of findTasksByStatus(allTasks, 'IN_PROGRESS')"style="">
+          <div class="card-body">
+            <h5 class="card-title">{{task.title}}</h5>
+            <p class="card-text">{{task.description}}</p>
+            <small class="card-text d-block">Creation date: {{task.creationDate | date:'dd/mm/yyyy hh:ss'}}</small>
+            <small class="card-text d-block">Due date: {{task.dueDate | date:'dd/mm/yyyy hh:ss'}}</small>
+            <div class="mt-4">
+              <button (click)="onDelete(task)" type="button" class="btn btn-outline-danger me-1 btn-sm">DELETE</button>
+              <button (click)="onUpdate(task)" type="button" class="btn btn-outline-primary me-1 btn-sm">UPDATE</button>
+              <button (click)="changeStatus(task.id, 'PENDING')" type="button" class="btn btn-outline-secondary me-1 btn-sm">PENDING</button>
+              <button (click)="changeStatus(task.id, 'FINISHED')" type="button" class="btn btn-outline-warning me-1 btn-sm">FINISHED</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h3 class="text-center">Finished</h3>
+        <div class="card mt-2" *ngFor="let task of findTasksByStatus(allTasks, 'FINISHED')"style="">
+          <div class="card-body">
+            <h5 class="card-title">{{task.title}}</h5>
+            <p class="card-text">{{task.description}}</p>
+            <small class="card-text d-block">Creation date: {{task.creationDate | date:'dd/mm/yyyy hh:ss'}}</small>
+            <small class="card-text d-block">Due date: {{task.dueDate | date:'dd/mm/yyyy hh:ss'}}</small>
+            <div class="mt-4">
+              <button (click)="onDelete(task)" type="button" class="btn btn-outline-danger me-1 btn-sm">DELETE</button>
+              <button (click)="onUpdate(task)" type="button" class="btn btn-outline-primary me-1 btn-sm">UPDATE</button>
+              <button (click)="changeStatus(task.id, 'IN_PROGRESS')" type="button" class="btn btn-outline-secondary me-1 btn-sm">IN PROGRESS</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

@@ -1,0 +1,19 @@
+<form [formGroup]="taskFormGroup" (submit)="onSubmit()">
+    <div class="mb-3">
+        <label class="form-label">Task title</label>
+        <input formControlName="titleControl" type="text" class="form-control" placeholder="Schedule appointment">
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Task description (optional)</label>
+        <input formControlName="descriptionControl" type="text" class="form-control" placeholder="Call Dr. Smith and schedule an appointment">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Due date</label>
+        <input formControlName="dueDateControl" type="datetime-local" class="form-control" placeholder="">
+    </div>
+
+    <button class="btn btn-outline-primary me-3" type="submit">Submit</button>
+
+</form>
